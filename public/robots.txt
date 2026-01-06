@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /my/
+Disallow: /orders/
+Disallow: /checkout/
+Disallow: /login
+Disallow: /register
+Disallow: /api/
+Disallow: /*?page=
+Disallow: /*?price=
+Disallow: /*?colorId=
+Disallow: /*?sizeId=
+Disallow: /*?brandId=
+Disallow: /*?rating=
+Disallow: /*?discount=
+Crawl-delay: 10
+
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 5
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 5
+
+User-agent: DuckDuckBot
+Allow: /

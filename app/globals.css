@@ -1,0 +1,389 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+:root {
+  height: 100%;
+  background: white;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+ 
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+ 
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+ 
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+ 
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+ 
+    --radius: 0.5rem;
+    --plyr-color-main: #f09522; 
+  }
+ 
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+ 
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+ 
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+ 
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+ 
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+ 
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+ 
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+ 
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* mega menu */
+
+  /* #Mega Menu Styles
+  if you use sass, convert all this additional css to tailwindcss using the 'hack' @apply for all element.style (css properties)
+[ https://tailwindcss.com/docs/functions-and-directives/#apply ]
+example:
+  .mega-menu {
+  @apply
+  hidden
+  left-0
+  absolute
+  text-left
+  w-full;
+  }
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+  .mega-menu {
+    opacity:0;
+    visibility:hidden;
+    z-index: -900;
+    left: 0;
+    position: absolute;
+    text-align: left;
+    width: 100%;
+    transition: all 0.15s linear 0s;
+  }
+
+
+
+  /* #hoverable Class Styles */
+  .hoverable {
+    position: static;
+  }
+
+  .hoverable > a:after {
+    content: "\25BC";
+    font-size: 10px;
+    padding-left: 6px;
+    position: relative;
+    top: -1px;
+  }
+
+  .hoverable:hover .mega-menu {
+    opacity:1;
+    visibility:visible;
+    z-index: 900;
+  }
+
+
+  /* #toggle Class Styles */
+
+  .toggleable > label:after {
+    content: "\25BC";
+    font-size: 10px;
+    padding-left: 6px;
+    position: relative;
+    top: -1px;
+  }
+
+  .toggle-input {
+    display: none;
+  }
+  .toggle-input:not(checked) ~ .mega-menu {
+    opacity:0;
+    visibility:hidden;
+    z-index: -900;
+  }
+
+  .toggle-input:checked ~ .mega-menu {
+    opacity:1;
+    visibility:visible;
+    z-index: 900;
+  }
+
+  .toggle-input:checked + label {
+    color: white;
+    background: #ba7723; /*@apply bg-teal-700 */
+  }
+
+  .toggle-input:checked ~ label:after {
+    content: "\25B2";
+    font-size: 10px;
+    padding-left: 6px;
+    position: relative;
+    top: -1px;
+  }
+
+  .swiper-pagination{
+    bottom: -5px !important;
+  }
+
+  .bunny-player-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.slick-slider,
+.slick-list,
+.slick-track {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.slick-slide {
+  transition: opacity 0.5s linear;
+}
+
+
+.tiptap:first-child {
+    margin-top: 0;
+}
+
+.tiptap ul,
+.tiptap ol {
+    padding: 0 1rem;
+    margin: 1.25rem 1rem 1.25rem 0.4rem;
+}
+
+.tiptap ul li p,
+.tiptap ol li p {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+
+.ProseMirror {
+    outline: none;
+}
+
+ul[data-type="taskList"] {
+    list-style: none;
+    margin-left: 0;
+    padding: 0;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+ul[data-type="taskList"] li>label {
+    flex: 0 0 auto;
+    margin-right: 0.5rem;
+    user-select: none;
+}
+
+ul[data-type="taskList"] li>div {
+    flex: 1 1 auto;
+}
+
+ul[data-type="taskList"] input[type="checkbox"] {
+    cursor: pointer;
+}
+
+ul[data-type="taskList"] ul[data-type="taskList"] {
+    margin: 0;
+}
+
+
+.tiptap pre {
+    background: #2e2b29;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    font-family: 'JetBrainsMono', monospace;
+    margin: 1.5rem 0;
+    padding: 0.75rem 1rem;
+}
+
+.tiptap pre code {
+    background: none;
+    color: inherit;
+    font-size: 0.8rem;
+    padding: 0;
+}
+
+.tiptap pre .hljs-comment,
+.tiptap pre .hljs-quote {
+    color: #616161;
+}
+
+.tiptap pre .hljs-variable,
+.tiptap pre .hljs-template-variable,
+.tiptap pre .hljs-attribute,
+.tiptap pre .hljs-tag,
+.tiptap pre .hljs-name,
+.tiptap pre .hljs-regexp,
+.tiptap pre .hljs-link,
+.tiptap pre .hljs-selector-id,
+.tiptap pre .hljs-selector-class {
+    color: #f98181;
+}
+
+.tiptap pre .hljs-number,
+.tiptap pre .hljs-meta,
+.tiptap pre .hljs-built_in,
+.tiptap pre .hljs-builtin-name,
+.tiptap pre .hljs-literal,
+.tiptap pre .hljs-type,
+.tiptap pre .hljs-params {
+    color: #fbbc88;
+}
+
+.tiptap pre .hljs-string,
+.tiptap pre .hljs-symbol,
+.tiptap pre .hljs-bullet {
+    color: #b9f18d;
+}
+
+.tiptap pre .hljs-title,
+.tiptap pre .hljs-section {
+    color: #faf594;
+}
+
+.tiptap pre .hljs-keyword,
+.tiptap pre .hljs-selector-tag {
+    color: #70cff8;
+}
+
+.tiptap pre .hljs-emphasis {
+    font-style: italic;
+}
+
+.tiptap pre .hljs-strong {
+    font-weight: 700;
+}
+
+.iceDriveEditor h1,
+  .iceDriveEditor .ProseMirror h1 {
+    @apply text-4xl font-bold mb-4 leading-tight !important;
+  }
+  .iceDriveEditor h2,
+  .iceDriveEditor .ProseMirror h2 {
+    @apply text-3xl font-semibold mb-3 leading-snug !important;
+  }
+  .iceDriveEditor h3,
+  .iceDriveEditor .ProseMirror h3 {
+    @apply text-2xl font-medium mb-2 leading-snug !important;
+  }
+  .iceDriveEditor h4,
+  .iceDriveEditor .ProseMirror h4 {
+    @apply text-xl font-medium mb-2 leading-snug !important;
+  }
+  .iceDriveEditor h5,
+  .iceDriveEditor .ProseMirror h5 {
+    @apply text-lg font-medium mb-2 leading-snug !important;
+  }
+  .iceDriveEditor p,
+  .iceDriveEditor .ProseMirror p {
+    @apply text-base leading-6 mb-2;
+  }
+
+  .iceDriveEditor img {
+    max-width: 100%;
+}
+
+.iceDriveEditor table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    table-layout: fixed;
+}
+
+.iceDriveEditor th,
+.iceDriveEditor td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.iceDriveEditor th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+}
+
+.iceDriveEditor tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.iceDriveEditor tr:hover {
+    background-color: #e9e9e9;
+}
+
+.iceDriveEditor ul {
+  list-style: disc;
+  padding-left: 40px;
+}
+
+.iceDriveEditor ol{
+  list-style: decimal;
+  padding-left: 40px;
+}
+
+.iceDriveEditor a{
+  color: blue;
+  text-decoration: underline;
+}
+
+.iceDriveEditor img{
+  display: inline-block;
+}
+
+
