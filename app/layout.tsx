@@ -32,7 +32,9 @@ export default function RootLayout({
       <link rel="icon" href="/assets/favicon.ico" sizes="any" />
       <body className={roboto.className}>
         <Analytics />
-        <SessionProvider refetchInterval={5 * 60} refetchOnWindowFocus={true}>
+        <SessionProvider refetchInterval={0} // Was 5*60 → no polling
+          refetchOnWindowFocus={false} // Was true → no tab focus refetch
+          refetchWhenOffline={false}>
           <ThemeProvider
             attribute="class"
             defaultTheme="light"

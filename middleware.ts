@@ -1,4 +1,3 @@
-// middleware.ts
 import NextAuth from "next-auth";
 import authConfig from "@/auth.config";
 import {
@@ -13,8 +12,6 @@ const { auth } = NextAuth(authConfig);
 export default auth((req) => {
   const { nextUrl } = req;
   const pathname = nextUrl.pathname;
-
-  // === BOT BLOCKING (EARLY, SITE-WIDE) ===
   const ua = (req.headers.get("user-agent") || "").toLowerCase();
 
   const badBots = [
@@ -47,7 +44,6 @@ export default auth((req) => {
     return new Response("Forbidden - Bot access denied", { status: 403 });
   }
 
-  // === YOUR EXISTING AUTH LOGIC ===
   const isLoggedIn = !!req.auth;
 
   const isApiAuthRoute = pathname.startsWith(apiAuthPrefix);
@@ -70,7 +66,8 @@ export default auth((req) => {
   return null;
 });
 
-// Run middleware on all routes (except static/_next to avoid waste)
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|public).*)"],
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|public|robots.txt|sitemap.xml).*)",
+  ],
 };

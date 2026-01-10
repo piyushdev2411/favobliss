@@ -9,7 +9,7 @@ interface ProductPageProps {
   params: { slug: string };
 }
 
-export const revalidate = 600;
+export const revalidate = 3600;
 
 // Validate slug early (prevents image filenames like "placeholder-brand.png")
 function isValidSlug(slug: string): any {
