@@ -1,6 +1,7 @@
 "use server";
 
 import { searchStore } from "@/data/functions/search";
+import { unstable_cache } from "next/cache";
 import { cache } from "react";
 
 const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "684315296fa373b59468f387";
@@ -13,7 +14,7 @@ interface SearchParams {
 }
 
 // Only cache "suggested" results (no query)
-const getCachedSuggested = cache(
+const getCachedSuggested = unstable_cache(
   async (page: number, limit: number): Promise<any> => {
     console.log(
       `[CACHE MISS] Fetching suggested search results: page=${page}, limit=${limit}`

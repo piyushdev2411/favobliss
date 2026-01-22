@@ -1,7 +1,6 @@
 // actions/get-products.ts
 "use server";
 
-import { cache } from "react";
 import { Product } from "@/types";
 import {
   hotDeals,
@@ -10,6 +9,7 @@ import {
   productsList,
   recentlyViewedProducts,
 } from "@/data/functions/product";
+import { unstable_cache } from "next/cache";
 
 const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "684315296fa373b59468f387";
 
@@ -45,7 +45,7 @@ const recentlyViewedKey = (productIds: string[], locationGroupId?: string) =>
   `recently-viewed-${productIds.sort().join("-")}-${locationGroupId || "none"}`;
 
 /* ---------- GET PRODUCT BY SLUG ---------- */
-export const getProductBySlug = cache(
+export const getProductBySlug = unstable_cache(
   async (
     slug: string,
     includeRelated = false,
@@ -57,7 +57,7 @@ export const getProductBySlug = cache(
 );
 
 /* ---------- GET PRODUCT BY ID ---------- */
-export const getProductById = cache(
+export const getProductById = unstable_cache(
   async (
     id: string,
     includeRelated = false,
@@ -69,7 +69,7 @@ export const getProductById = cache(
 );
 
 /* ---------- GET RECENTLY VIEWED ---------- */
-export const getRecentlyViewedProducts = cache(
+export const getRecentlyViewedProducts = unstable_cache(
   async (productIds: string[], locationGroupId?: string): Promise<any[]> => {
     console.log(
       `[CACHE MISS] Fetching recently viewed: ${productIds.length} items`

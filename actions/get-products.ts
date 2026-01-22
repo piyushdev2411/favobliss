@@ -10,6 +10,7 @@ import {
   productsList,
   recentlyViewedProducts,
 } from "@/data/functions/product";
+import { unstable_cache } from "next/cache";
 
 const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "684315296fa373b59468f387";
 
@@ -47,7 +48,7 @@ const recentlyViewedKey = (productIds: string[], locationGroupId?: string) =>
   `recently-viewed-${productIds.sort().join("-")}-${locationGroupId || "none"}`;
 
 /* ---------- GET PRODUCTS LIST ---------- */
-export const getProducts = cache(
+export const getProducts = unstable_cache(
   async (
     query: ProductQuery = {}
   ): Promise<{ products: any[]; totalCount: number }> => {
@@ -56,7 +57,7 @@ export const getProducts = cache(
   }
 );
 
-export const getHotDeals = cache(
+export const getHotDeals = unstable_cache(
   async (query: HotDealsQuery): Promise<any[]> => {
     console.log(`[CACHE MISS] Fetching hot deals:`, query);
     return await hotDeals(query, STORE_ID);

@@ -1,20 +1,14 @@
 User-agent: *
+Crawl-delay: 10
 Allow: /
 Disallow: /admin/
 Disallow: /my/
 Disallow: /orders/
 Disallow: /checkout/
-Disallow: /login
-Disallow: /register
+Disallow: /login/
+Disallow: /register/
 Disallow: /api/
-Disallow: /*?page=
-Disallow: /*?price=
-Disallow: /*?colorId=
-Disallow: /*?sizeId=
-Disallow: /*?brandId=
-Disallow: /*?rating=
-Disallow: /*?discount=
-Crawl-delay: 10
+Disallow: /*?*
 
 User-agent: Googlebot
 Allow: /
