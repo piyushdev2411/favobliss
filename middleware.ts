@@ -6,30 +6,13 @@ import {
   authRoutes,
   privateRoutes,
 } from "@/routes";
-import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
 
 const { auth } = NextAuth(authConfig);
 
-  const ratelimit = new Ratelimit({
-    redis: Redis.fromEnv(), // Set UPSTASH_REDIS_REST_URL/TOKEN in Vercel env
-    limiter: Ratelimit.slidingWindow(10, "10 s"), // 10 req/10s per IP
-    analytics: true,
-  });
-
-
-export default auth(async (req) => {
+export default auth((req) => {
   const { nextUrl } = req;
   const pathname = nextUrl.pathname;
   const ua = (req.headers.get("user-agent") || "").toLowerCase();
-
-
-  // In auth function:
-  const ip = req.headers.get("x-forwarded-for") || "anonymous";
-  const { success } = await ratelimit.limit(ip);
-  if (!success) {
-    return new Response("Rate limit exceeded", { status: 429 });
-  }
 
   const badBots = [
     "ahrefsbot",
@@ -57,10 +40,7 @@ export default auth(async (req) => {
 
   const goodBots = ["googlebot", "bingbot", "duckduckbot", "slurp", "yandex"];
 
-  if (
-    badBots.some((bot) => ua.includes(bot)) &&
-    !goodBots.some((good) => ua.includes(good))
-  ) {
+  if (badBots.some((bot) => ua.includes(bot)) && !goodBots.some((good) => ua.includes(good))) {
     return new Response("Forbidden - Bot access denied", { status: 403 });
   }
 
@@ -68,9 +48,7 @@ export default auth(async (req) => {
 
   const isApiAuthRoute = pathname.startsWith(apiAuthPrefix);
   const isAuthRoute = authRoutes.includes(pathname);
-  const isPrivateRoute = privateRoutes.some((route) =>
-    pathname.startsWith(route),
-  );
+  const isPrivateRoute = privateRoutes.some((route) => pathname.startsWith(route));
 
   if (isApiAuthRoute) return null;
 

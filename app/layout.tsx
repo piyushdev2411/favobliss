@@ -5,6 +5,7 @@ import { ModalProvider } from "@/providers/admin/modal-provider";
 import { ThemeProvider } from "@/providers/admin/theme-provider";
 import { SessionProvider } from "next-auth/react";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css";
 
 const roboto = Roboto({
@@ -32,6 +33,7 @@ export default function RootLayout({
       <link rel="icon" href="/assets/favicon.ico" sizes="any" />
       <body className={roboto.className}>
         <Analytics />
+        <SpeedInsights />
         <SessionProvider refetchInterval={0} // Was 5*60 → no polling
           refetchOnWindowFocus={false} // Was true → no tab focus refetch
           refetchWhenOffline={false}>
