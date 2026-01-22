@@ -11,17 +11,20 @@ import { Redis } from "@upstash/redis";
 
 const { auth } = NextAuth(authConfig);
 
-const ratelimit = new Ratelimit({
-  redis: Redis.fromEnv(), 
-  limiter: Ratelimit.slidingWindow(10, "10 s"), 
-  analytics: true,
-});
+  const ratelimit = new Ratelimit({
+    redis: Redis.fromEnv(), // Set UPSTASH_REDIS_REST_URL/TOKEN in Vercel env
+    limiter: Ratelimit.slidingWindow(10, "10 s"), // 10 req/10s per IP
+    analytics: true,
+  });
+
 
 export default auth(async (req) => {
   const { nextUrl } = req;
   const pathname = nextUrl.pathname;
   const ua = (req.headers.get("user-agent") || "").toLowerCase();
 
+
+  // In auth function:
   const ip = req.headers.get("x-forwarded-for") || "anonymous";
   const { success } = await ratelimit.limit(ip);
   if (!success) {
@@ -87,7 +90,6 @@ export default auth(async (req) => {
 
 export const config = {
   matcher: [
-    '/',
-    '/((?!_next/static|_next/image|_next/data|api|favicon.ico|manifest.json|sw.js|robots.txt|sitemap.xml|public).*)',
+    "/((?!_next/static|_next/image|favicon.ico|public|robots.txt|sitemap.xml).*)",
   ],
 };
