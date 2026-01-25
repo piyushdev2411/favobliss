@@ -403,31 +403,31 @@ model Brand {
 }
 
 model Product {
-  id                 String                    @id @default(auto()) @map("_id") @db.ObjectId
-  storeId            String                    @db.ObjectId
-  store              Store                     @relation("StoreToProduct", fields: [storeId], references: [id], onDelete: Cascade)
-  categoryId         String?                   @db.ObjectId
-  category           Category?                 @relation("CategoryToProduct", fields: [categoryId], references: [id], onDelete: Restrict)
-  subCategoryId      String?                   @db.ObjectId
-  subCategory        SubCategory?              @relation("SubCategoryToProduct", fields: [subCategoryId], references: [id], onDelete: SetNull, onUpdate: NoAction)
-  brandId            String?                   @db.ObjectId
-  brand              Brand?                    @relation("BrandToProduct", fields: [brandId], references: [id], onDelete: SetNull)
-  sizeAndFit         String[]
-  materialAndCare    String[]
-  enabledFeatures    String?
-  expressDelivery    Boolean                   @default(false)
-  warranty           String?
-  isFeatured         Boolean                   @default(false)
-  isArchieved        Boolean                   @default(false)
-  isNewArrival       Boolean                   @default(false)
-  reviews            Review[]                  @relation("ProductToReview")
-  comments           Comment[]
-  wishlists          WishlistItem[]
-  homepageCategories HomepageCategoryProduct[] @relation("ProductToHomepageCategory")
-  createdAt          DateTime                  @default(now())
-  updatedAt          DateTime                  @updatedAt
-  variants           Variant[]
-  coupons            CouponProduct[]           @relation("ProductToCoupon")
+  id                  String                    @id @default(auto()) @map("_id") @db.ObjectId
+  storeId             String                    @db.ObjectId
+  store               Store                     @relation("StoreToProduct", fields: [storeId], references: [id], onDelete: Cascade)
+  categoryId          String?                   @db.ObjectId
+  category            Category?                 @relation("CategoryToProduct", fields: [categoryId], references: [id], onDelete: Restrict)
+  subCategoryId       String?                   @db.ObjectId
+  subCategory         SubCategory?              @relation("SubCategoryToProduct", fields: [subCategoryId], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  brandId             String?                   @db.ObjectId
+  brand               Brand?                    @relation("BrandToProduct", fields: [brandId], references: [id], onDelete: SetNull)
+  sizeAndFit          String[]
+  materialAndCare     String[]
+  enabledFeatures     String?
+  expressDelivery     Boolean                   @default(false)
+  warranty            String?
+  isFeatured          Boolean                   @default(false)
+  isArchieved         Boolean                   @default(false)
+  isNewArrival        Boolean                   @default(false)
+  reviews             Review[]                  @relation("ProductToReview")
+  comments            Comment[]
+  wishlists           WishlistItem[]
+  homepageCategories  HomepageCategoryProduct[] @relation("ProductToHomepageCategory")
+  createdAt           DateTime                  @default(now())
+  updatedAt           DateTime                  @updatedAt
+  variants            Variant[]
+  coupons             CouponProduct[]           @relation("ProductToCoupon")
   hotProductsProducts HotProductsProduct[]
 
   @@index([categoryId, subCategoryId, storeId, brandId])
@@ -501,6 +501,7 @@ model Variant {
   hsn                   String?
   tax                   Float?                 @default(0)
   gstIn                 String?
+  gtin                  String?
   name                  String
   slug                  String                 @unique
   about                 String?
@@ -603,12 +604,12 @@ model HomepageCategoryProduct {
 // Add this instead:
 
 model HotProductsSection {
-  id          String              @id @default("hot-products-singleton") @map("_id")
-  storeId     String              @db.ObjectId
-  store       Store               @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  id          String               @id @default("hot-products-singleton") @map("_id")
+  storeId     String               @db.ObjectId
+  store       Store                @relation(fields: [storeId], references: [id], onDelete: Cascade)
   bannerImage String
   products    HotProductsProduct[]
-  updatedAt   DateTime            @updatedAt
+  updatedAt   DateTime             @updatedAt
 
   @@unique([storeId])
 }

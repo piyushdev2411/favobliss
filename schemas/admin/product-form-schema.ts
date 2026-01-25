@@ -29,6 +29,10 @@ export const VariantSchema = z
       .string()
       .optional()
       .transform((val) => (val === null ? "" : val)),
+     gtin: z
+      .string()
+      .optional()
+      .transform((val) => (val === null ? "" : val)),
     variantPrices: z
       .array(
         z.object({

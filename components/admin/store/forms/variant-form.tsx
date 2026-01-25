@@ -431,6 +431,23 @@ export default function VariantForm({
             </FormItem>
           )}
         />
+         <FormField
+          control={control}
+          name={`variants.${index}.gtin`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>GTIN Number</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  placeholder="Enter GTIN Number"
+                  disabled={disabled}
+                />
+              </FormControl>
+              <FormMessage className="w-full px-2 py-2 bg-destructive/20 text-destructive/70 rounded-md" />
+            </FormItem>
+          )}
+        />
         <div className="mt-4 md:col-span-2">
           <div className="flex justify-between items-center mb-2">
             <h4 className="font-medium">Prices by Location Group</h4>

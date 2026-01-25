@@ -164,6 +164,7 @@ export const ProductForm = ({
               hsn: "",
               tax: 0,
               gstIn: "",
+              gtin: "",
               specifications: [],
               variantPrices:
                 locationGroups.length > 0
@@ -607,6 +608,7 @@ export const ProductForm = ({
                   hsn: "",
                   tax: 0,
                   gstIn: "",
+                  gtin: "",
                   specifications: [],
                   variantPrices:
                     locationGroups.length > 0
